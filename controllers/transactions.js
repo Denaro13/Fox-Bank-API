@@ -42,19 +42,20 @@ const getReceipt = async (req, res) => {
     .text("Currency: NGN");
 
   doc.end();
-  res.doc;
+  res.status(StatusCodes.OK).doc;
 };
 
 const deposit = async (req, res) => {
   const { acctNumber, depositAmt } = req.body;
-
   if (acctNumber === "" || depositAmt === "") {
     throw new BadRequestError("AcctNumber or depositAmt cannot be empty");
   }
   if (!acctNumber || !depositAmt) {
     throw new BadRequestError("Please provide acctNumber and depositAmt");
   }
-  const accountHolder = await Account.findOne({ accountNumber: acctNumber });
+  const accountHolder = await Account.findOne({
+    accountNumber: acctNumber,
+  });
   if (!accountHolder) {
     throw new NotFoundError(
       `There is no account holder with account number: ${acctNumber}`

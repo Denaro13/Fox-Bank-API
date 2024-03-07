@@ -17,7 +17,6 @@ const auth = async (req, res, next) => {
       userId: payload.userId,
       name: `${payload.name.firstName} ${payload.name.lastName}`,
     };
-    console.log(req.user);
     next();
   } catch (error) {
     throw new UnauthenticatedError("Authentication invalid");
