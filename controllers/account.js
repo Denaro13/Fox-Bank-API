@@ -3,9 +3,10 @@ const Account = require("../models/Account");
 const { faker } = require("@faker-js/faker");
 const { BadRequestError, NotFoundError } = require("../errors");
 
-const getAccount = async (req, res) => {
+const getUserAccounts = async (req, res) => {
   const { userId } = req.params;
   const accounts = await Account.find({ userId: userId }).sort("dateOpened");
+
   res.status(StatusCodes.OK).json({ accounts, count: accounts.length });
 };
 
@@ -21,6 +22,6 @@ const createAccount = async (req, res) => {
 };
 
 module.exports = {
-  getAccount,
+  getUserAccounts,
   createAccount,
 };
