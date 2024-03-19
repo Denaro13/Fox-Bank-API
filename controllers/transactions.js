@@ -1,5 +1,5 @@
 const Account = require("../models/Account");
-const Transaction = require("../models/transaction");
+const Transaction = require("../models/Transaction");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 const PDFDocument = require("pdfkit");
