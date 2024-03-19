@@ -40,7 +40,7 @@ app.use(xss());
 
 // routes
 app.get("/", (req, res) => {
-  res.send("<h1>Liberty Bank Node API</h1>");
+  res.send("<h1>Fox Bank API</h1>");
 });
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/accounts", authenticateUser, accountRouter);
