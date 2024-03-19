@@ -3,6 +3,12 @@ const Transaction = require("../models/Transaction");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 const PDFDocument = require("pdfkit");
+const transaction = require("../models/Transaction");
+
+const getTransactions = async (req, res) => {
+  const transactions = await Transaction.find({});
+  res.status(StatusCodes.OK).json({ transactions, count: transactions.length });
+};
 
 const getReceipt = async (req, res) => {
   const { transactionId } = req.params;
@@ -171,4 +177,4 @@ const transfer = async (req, res) => {
   });
 };
 
-module.exports = { getReceipt, deposit, withdraw, transfer };
+module.exports = { getReceipt, deposit, withdraw, transfer, getTransactions };

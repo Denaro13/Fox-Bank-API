@@ -1,0 +1,244 @@
+openapi: 3.0.0
+info:
+  title: FoxBank-API
+  version: 1.0.0
+servers:
+  - url: hhttps://fox-bank-api.onrender.com/api/v1/
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                firstName: Akinola
+                lastName: Moni
+                email: moni1@gmail.com
+                password: secret
+                phoneNumber: "08155835284"
+                address: Lagos, Nigeria
+                role: USER
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: qudus@gmail.com
+                password: secret
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /accounts:
+    post:
+      tags:
+        - Accounts
+      summary: Create Account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                accountType: CURRENT
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU5NzAyMDNjMzA0MTJlMjY3NTEyYmIiLCJuYW1lIjp7Il9pZCI6IjY1ZTk3MDIwM2MzMDQxMmUyNjc1MTJiYiIsImZpcnN0TmFtZSI6IlF1ZHVzIiwibGFzdE5hbWUiOiJPd29sYWJpIiwiZW1haWwiOiJxdWR1c0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRPZmNKOG12Q3Z4OFpEQm5ud2RCQnFPUjguczFySG9OOE1WSmpaZ0dNTnZyek5aY1MyMzlPbSIsInBob25lTnVtYmVyIjoiMDgxNTU4MzUyODQiLCJhZGRyZXNzIjoiT3lvLCBOaWdlcmlhIiwiZGF0ZUpvaW5lZCI6IjIwMjQtMDMtMDdUMDc6MzY6MDYuNjk4WiIsInJvbGUiOiJBRE1JTiIsIl9fdiI6MH0sImlhdCI6MTcwOTc5NzYzMiwiZXhwIjoxNzEyMzg5NjMyfQ.WtTNPS01UMwcfZeXfK_lRz97JdGPdnnCGh3A_dGslwU
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /transactions/transfer:
+    post:
+      tags:
+        - Transactions
+      summary: Transfer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                senderAcctNumber: "5271028409"
+                receiverAcctNumber: "2573881483"
+                transactionAmt: "500"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /transactions:
+    get:
+      tags:
+        - Transactions
+      summary: Get All Transactions
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /transactions/deposit:
+    post:
+      tags:
+        - Transactions
+      summary: Deposit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                acctNumber: "5271028409"
+                depositAmt: "100"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /transactions/withdraw:
+    post:
+      tags:
+        - Transactions
+      summary: Withdraw
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                acctNumber: "5271028409"
+                withdrawalAmt: "250"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /transactions/receipt/65e80a5df6145ad921d778d5:
+    get:
+      tags:
+        - Transactions
+      summary: Get Receipt
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/pdf:
+              schema:
+                type: object
+                format: binary
+
+  /accounts/65e6ee232b2f7b305e4f195a:
+    get:
+      tags:
+        - Accounts
+      summary: Get User Accounts
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU5NzAyMDNjMzA0MTJlMjY3NTEyYmIiLCJuYW1lIjp7Il9pZCI6IjY1ZTk3MDIwM2MzMDQxMmUyNjc1MTJiYiIsImZpcnN0TmFtZSI6IlF1ZHVzIiwibGFzdE5hbWUiOiJPd29sYWJpIiwiZW1haWwiOiJxdWR1c0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRPZmNKOG12Q3Z4OFpEQm5ud2RCQnFPUjguczFySG9OOE1WSmpaZ0dNTnZyek5aY1MyMzlPbSIsInBob25lTnVtYmVyIjoiMDgxNTU4MzUyODQiLCJhZGRyZXNzIjoiT3lvLCBOaWdlcmlhIiwiZGF0ZUpvaW5lZCI6IjIwMjQtMDMtMDdUMDc6MzY6MDYuNjk4WiIsInJvbGUiOiJBRE1JTiIsIl9fdiI6MH0sImlhdCI6MTcwOTgwMjY3NywiZXhwIjoxNzEyMzk0Njc3fQ.pLs_mePGkhPkqqeZkZ1m0t-eVxdt5A9H118CyCw2fMI
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /users:
+    get:
+      tags:
+        - Accounts
+      summary: Get All Users
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU5NzAyMDNjMzA0MTJlMjY3NTEyYmIiLCJuYW1lIjp7Il9pZCI6IjY1ZTk3MDIwM2MzMDQxMmUyNjc1MTJiYiIsImZpcnN0TmFtZSI6IlF1ZHVzIiwibGFzdE5hbWUiOiJPd29sYWJpIiwiZW1haWwiOiJxdWR1c0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRPZmNKOG12Q3Z4OFpEQm5ud2RCQnFPUjguczFySG9OOE1WSmpaZ0dNTnZyek5aY1MyMzlPbSIsInBob25lTnVtYmVyIjoiMDgxNTU4MzUyODQiLCJhZGRyZXNzIjoiT3lvLCBOaWdlcmlhIiwiZGF0ZUpvaW5lZCI6IjIwMjQtMDMtMDdUMDc6MzY6MDYuNjk4WiIsInJvbGUiOiJBRE1JTiIsIl9fdiI6MH0sImlhdCI6MTcwOTgwMjY3NywiZXhwIjoxNzEyMzk0Njc3fQ.pLs_mePGkhPkqqeZkZ1m0t-eVxdt5A9H118CyCw2fMI
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /users/65e970203c30412e267512bb:
+    get:
+      tags:
+        - Accounts
+      summary: Get User
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU5OThlNTlmMWU2MzEzY2NkM2M3MjMiLCJuYW1lIjp7ImZpcnN0TmFtZSI6Ik1vbG9sdXdhIiwibGFzdE5hbWUiOiJEZWJvcmFoIiwiZW1haWwiOiJtb25pQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGFuTDV2MkVuWmZ0SGFyTlh2V2Vvcy5mOWhCSnNwZHdtYXB2dkxGa3pZaENjdTlKMy80QXNXIiwicGhvbmVOdW1iZXIiOiIwODE1NTgzNTI4NCIsImFkZHJlc3MiOiJMYWdvcywgTmlnZXJpYSIsImRhdGVKb2luZWQiOiIyMDI0LTAzLTA3VDEwOjM2OjA5Ljc3NloiLCJyb2xlIjoiQURNSU4iLCJfaWQiOiI2NWU5OThlNTlmMWU2MzEzY2NkM2M3MjMiLCJfX3YiOjB9LCJpYXQiOjE3MDk4MDc4NDYsImV4cCI6MTcxMjM5OTg0Nn0.pR-hf92uAXWDKV7-CO2idd5xplDT4gpia9R1lYXvtHk
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /users/65f99be4c088ee5df51a5b44:
+    delete:
+      tags:
+        - Accounts
+      summary: Delete User
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU5NzAyMDNjMzA0MTJlMjY3NTEyYmIiLCJuYW1lIjp7Il9pZCI6IjY1ZTk3MDIwM2MzMDQxMmUyNjc1MTJiYiIsImZpcnN0TmFtZSI6IlF1ZHVzIiwibGFzdE5hbWUiOiJPd29sYWJpIiwiZW1haWwiOiJxdWR1c0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRPZmNKOG12Q3Z4OFpEQm5ud2RCQnFPUjguczFySG9OOE1WSmpaZ0dNTnZyek5aY1MyMzlPbSIsInBob25lTnVtYmVyIjoiMDgxNTU4MzUyODQiLCJhZGRyZXNzIjoiT3lvLCBOaWdlcmlhIiwiZGF0ZUpvaW5lZCI6IjIwMjQtMDMtMDdUMDc6MzY6MDYuNjk4WiIsInJvbGUiOiJBRE1JTiIsIl9fdiI6MH0sImlhdCI6MTcwOTgwMjY3NywiZXhwIjoxNzEyMzk0Njc3fQ.pLs_mePGkhPkqqeZkZ1m0t-eVxdt5A9H118CyCw2fMI
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
