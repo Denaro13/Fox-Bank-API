@@ -20,7 +20,7 @@ const getReceipt = async (req, res) => {
   doc.pipe(res);
   doc
     .fontSize(24)
-    .text("Liberty Bank Transaction Receipt", { align: "center" })
+    .text("Fox Bank Transaction Receipt", { align: "center" })
     .moveDown(1)
     .fontSize(18)
     .text(`Transaction ID: ${transactionId}`)
