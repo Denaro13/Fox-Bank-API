@@ -3,7 +3,7 @@ info:
   title: FoxBank-API
   version: 1.0.0
 servers:
-  - url: hhttps://fox-bank-api.onrender.com/api/v1
+  - url: https://fox-bank-api.onrender.com/api/v1
 components:
   securitySchemes:
     bearerAuth:
